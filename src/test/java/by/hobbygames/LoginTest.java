@@ -11,8 +11,5 @@ public class LoginTest extends BaseTest {
     public void loginTest() {
         LoginPage loginPage = new LoginPage();
         HomePage homePage = new HomePage();
-
-
-
     }
 }
