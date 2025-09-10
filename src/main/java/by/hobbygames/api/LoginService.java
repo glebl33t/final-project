@@ -22,7 +22,7 @@ public class LoginService {
     }
 
     public void doRequest() {
-        sendRequest(getBody("375445556677", "qwerty"));
+        sendRequest(BODY_DEFAULT);
     }
 
     public void doRequest(String body) {

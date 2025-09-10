@@ -1,6 +1,6 @@
-package by.hobbygames.pages;
+package by.hobbygames.ui.pages;
 
-import by.hobbygames.utils.WebDriver;
+import by.hobbygames.ui.utils.WebDriver;
 
 public class LoginPage {
     private final String USER_LOGIN = "//input[@name='login']";

@@ -1,4 +1,4 @@
-package by.hobbygames.utils;
+package by.hobbygames.ui.utils;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;

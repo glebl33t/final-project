@@ -1,6 +1,6 @@
-package by.hobbygames;
+package by.hobbygames.ui;
 
-import by.hobbygames.pages.LoginPage;
+import by.hobbygames.ui.pages.LoginPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

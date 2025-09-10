@@ -1,7 +1,7 @@
-package by.hobbygames;
+package by.hobbygames.ui;
 
-import by.hobbygames.pages.HomePage;
-import by.hobbygames.utils.WebDriver;
+import by.hobbygames.ui.pages.HomePage;
+import by.hobbygames.ui.utils.WebDriver;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
