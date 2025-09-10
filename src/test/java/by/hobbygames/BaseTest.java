@@ -7,11 +7,13 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class BaseTest {
 
+    protected HomePage homePage;
+
     @BeforeEach
     public void openSite() {
-        HomePage homePage = new HomePage();
-        homePage.openSite();
-        homePage.closeCookie();
+        homePage = new HomePage();
+        homePage.openSite().closeCookie();
+        homePage.clickPersonalLink();
     }
 
     @AfterEach

@@ -1,5 +1,6 @@
 package by.hobbygames.api;
 
+import io.restassured.path.json.JsonPath;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,10 +17,9 @@ public class LoginTest {
     }
 
     @Test
-    @DisplayName("f2")
-    public void testLogin2() {
+    void checkLoginSuccessField() {
         LoginService service = new LoginService();
-        service.doRequest("test@test.by","12354");
+        service.doRequest("375444444444", "неверныйПароль");
 
         System.out.println(service.getBody());
         Assertions.assertEquals(200, service.getStatusCode());
@@ -29,8 +29,9 @@ public class LoginTest {
     @DisplayName("f3")
     public void testLogin3() {
         LoginService service = new LoginService();
-        service.doRequest("login=test@admin.com&password=qwerty&scenario=email");
+        service.doRequest("login=&password=&scenario=email");
 
+        System.out.println(service.getBody());
         Assertions.assertEquals(200, service.getStatusCode());
     }
 }

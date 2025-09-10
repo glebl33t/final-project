@@ -13,25 +13,24 @@ public class LoginService {
     private final String BODY_TEMPLATE = "login=%s&password=%s&scenario=email";
     private Response response;
 
-    public void doRequest() {
-        response = given().headers(getHeaders())
-                .body(BODY_DEFAULT)
-                .queryParams(getQueryParams())
-                .when().post(URL);
-    }
-
-    public void doRequest(String body) {
-        response = given().headers(getHeaders())
+    private void sendRequest(String body) {
+        response = given()
+                .headers(getHeaders())
                 .body(body)
                 .queryParams(getQueryParams())
                 .when().post(URL);
     }
 
+    public void doRequest() {
+        sendRequest(getBody("375445556677", "qwerty"));
+    }
+
+    public void doRequest(String body) {
+        sendRequest(body);
+    }
+
     public void doRequest(String login, String password) {
-        response = given().headers(getHeaders())
-                .body(getBody(login, password))
-                .queryParams(getQueryParams())
-                .when().post(URL);
+        sendRequest(getBody(login, password));
     }
 
     private Map<String, String> getHeaders() {
@@ -51,8 +50,8 @@ public class LoginService {
         return String.format(BODY_TEMPLATE, login, password);
     }
 
-    public String getBody(){
-        return  response.getBody().asPrettyString();
+    public String getBody() {
+        return response.getBody().asPrettyString();
     }
 
     public int getStatusCode() {

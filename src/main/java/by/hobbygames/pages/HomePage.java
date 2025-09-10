@@ -12,12 +12,14 @@ public class HomePage {
         driver = WebDriver.getDriver();
     }
 
-    public void openSite() {
+    public HomePage openSite() {
         WebDriver.getDriver().get(URL);
+        return this;
     }
 
-    public void closeCookie(){
+    public HomePage closeCookie(){
         WebDriver.clickElement(CLOSE_COOKIE);
+        return this;
     }
 
     public void clickPersonalLink() {

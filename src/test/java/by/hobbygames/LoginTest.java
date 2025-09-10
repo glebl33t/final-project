@@ -1,62 +1,47 @@
 package by.hobbygames;
 
-import by.hobbygames.pages.HomePage;
 import by.hobbygames.pages.LoginPage;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 public class LoginTest extends BaseTest {
 
+    private LoginPage loginPage;
+
+    @BeforeEach
+    public void setupPages() {
+        loginPage = new LoginPage();
+    }
+
+    private void loginAndCheckErrors(String login, String password, String expectedLoginError, String expectedPasswordError) {
+        loginPage.fillLoginFormStep(login, password);
+        Assertions.assertEquals(expectedLoginError, loginPage.getTextErrorLogin(), "Login errors");
+        Assertions.assertEquals(expectedPasswordError, loginPage.getTextErrorPassword(), "Password errors");
+    }
+
     @Test
     @DisplayName("Авторизация со всеми параметрами")
     public void loginTestWithFullArgs() {
-        HomePage homePage = new HomePage();
-        homePage.clickPersonalLink();
-
-        LoginPage loginPage = new LoginPage();
-        loginPage.fillLoginFormStep("+375447774466","123445123");
-
-        Assertions.assertEquals("Неверный телефон/e-mail",loginPage.getTextErrorLogin());
-        Assertions.assertEquals("Неверный пароль",loginPage.getTextErrorPassword());
+        loginAndCheckErrors("+375447774466", "123445123", "Неверный телефон/e-mail", "Неверный пароль");
     }
 
     @Test
     @DisplayName("Авторизация с логином, но без пароля")
     public void loginTestWithoutPassword() {
-        HomePage homePage = new HomePage();
-        homePage.clickPersonalLink();
-
-        LoginPage loginPage = new LoginPage();
-        loginPage.fillLoginFormStep("+37544777436","");
-
-        Assertions.assertEquals("Неверный телефон/e-mail",loginPage.getTextErrorLogin());
-        Assertions.assertEquals("Введите пароль",loginPage.getTextErrorPassword());
+        loginAndCheckErrors("+37544777436", "", "Неверный телефон/e-mail", "Введите пароль");
     }
 
     @Test
     @DisplayName("Авторизация с логином, но короткий пароль")
     public void loginTestWithShortPassword() {
-        HomePage homePage = new HomePage();
-        homePage.clickPersonalLink();
-
-        LoginPage loginPage = new LoginPage();
-        loginPage.fillLoginFormStep("+375447774456","12");
-
-        Assertions.assertEquals("Неверный телефон/e-mail",loginPage.getTextErrorLogin());
-        Assertions.assertEquals("Неверный пароль",loginPage.getTextErrorPassword());
+        loginAndCheckErrors("+375447774456", "12", "Неверный телефон/e-mail", "Неверный пароль");
     }
 
     @Test
     @DisplayName("Авторизация без логина и пароля")
-    public void loginTestWithZeroArgs() {
-        HomePage homePage = new HomePage();
-        homePage.clickPersonalLink();
-
-        LoginPage loginPage = new LoginPage();
-        loginPage.fillLoginFormStep("","");
-
-        Assertions.assertEquals("Введите телефон или электронную почту",loginPage.getTextErrorLogin());
-        Assertions.assertEquals("Введите пароль",loginPage.getTextErrorPassword());
+    public void loginTestWithEmptyArgs() {
+        loginAndCheckErrors("", "", "Введите телефон или электронную почту", "Введите пароль");
     }
 }
