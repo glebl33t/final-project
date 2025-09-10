@@ -38,15 +38,17 @@ public class LoginPage {
     public void fillLoginFormStep(String login, String password) {
         sendKeysUserLogin(login);
         sendKeysUserPassword(password);
-        clickButtonLogin();
+        clickInputSubmit();
     }
 
     private void clickButtonLogin() {
     }
 
     private void sendKeysUserPassword(String password) {
+        WebDriver.sandKeysToElement(USER_PASSWORD, password);
     }
 
     private void sendKeysUserLogin(String login) {
+        WebDriver.sandKeysToElement(USER_LOGIN, login);
     }
 }

@@ -8,9 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 public class BaseTest {
 
     @BeforeEach
-    public void openSiteAndCloseBannerAndCloseCookie() {
+    public void openSite() {
         HomePage homePage = new HomePage();
         homePage.openSite();
+        homePage.closeCookie();
     }
 
     @AfterEach
