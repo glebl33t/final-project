@@ -13,7 +13,6 @@ public class BaseTest {
     public void openSite() {
         homePage = new HomePage();
         homePage.openSite().closeCookie();
-        homePage.clickPersonalLink();
     }
 
     @AfterEach
