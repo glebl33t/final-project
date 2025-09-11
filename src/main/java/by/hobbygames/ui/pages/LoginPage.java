@@ -15,14 +15,6 @@ public class LoginPage {
 
     }
 
-    public void clickInputLogin() {
-        WebDriver.clickElement(USER_LOGIN);
-    }
-
-    public void clickInputPassword() {
-        WebDriver.clickElement(USER_PASSWORD);
-    }
-
     public void clickInputSubmit() {
         WebDriver.clickElement(INPUT_SUBMIT);
     }
