@@ -13,7 +13,7 @@ public class LoginService {
     private final String BODY_TEMPLATE = "login=%s&password=%s&scenario=email";
     private Response response;
 
-    private void sendRequest(String body) {
+    private void sandRequest(String body) {
         response = given()
                 .headers(getHeaders())
                 .body(body)
@@ -22,15 +22,15 @@ public class LoginService {
     }
 
     public void doRequest() {
-        sendRequest(BODY_DEFAULT);
+        sandRequest(BODY_DEFAULT);
     }
 
     public void doRequest(String body) {
-        sendRequest(body);
+        sandRequest(body);
     }
 
     public void doRequest(String login, String password) {
-        sendRequest(getBody(login, password));
+        sandRequest(getBody(login, password));
     }
 
     private Map<String, String> getHeaders() {

@@ -13,7 +13,7 @@ public class WebDriver {
         if (driver == null) {
             driver = new ChromeDriver();
             driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(4));
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         }
         return driver;
     }
@@ -33,7 +33,7 @@ public class WebDriver {
         findElement(xpath).click();
     }
 
-    public static void sandKeysToElement(String xpath, String value) {
+    public static void sendKeysToElement(String xpath, String value) {
         findElement(xpath).sendKeys(value);
     }
 

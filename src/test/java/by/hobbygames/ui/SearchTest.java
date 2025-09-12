@@ -10,40 +10,35 @@ public class SearchTest extends BaseTest {
 
     private SearchPage searchPage;
 
-    private static final String SEARCH_TERM_EXISTING = "Space Marine Attack Bike";
-    private static final String SEARCH_TERM_PARTIAL = "уточка";
-    private static final String SEARCH_TERM_INVALID = "asfsaf";
-    private static final String NO_RESULTS_MESSAGE = "Ничего не найдено.";
-
     @BeforeEach
     public void setup() {
         searchPage = new SearchPage();
     }
 
     private void fillSearch(String searchText) {
-        searchPage.sandKeysSearch(searchText);
+        searchPage.sendKeysSearch(searchText);
         searchPage.startSearch();
     }
 
     @Test
     @DisplayName("Поиск конкретного товара")
     public void searchSpecificProduct() {
-        fillSearch(SEARCH_TERM_EXISTING);
+        fillSearch("Space Marine Attack Bike");
         String actualTitle = searchPage.getSearchResultFirstItemTitleText();
 
-        Assertions.assertEquals(SEARCH_TERM_EXISTING, actualTitle,
+        Assertions.assertEquals("Space Marine Attack Bike", actualTitle,
                 "Название первого товара не совпадает с ожидаемым");
     }
 
     @Test
     @DisplayName("Поиск по ключевому слову 'уточка'")
     public void searchAllProductsByName() {
-        fillSearch(SEARCH_TERM_PARTIAL);
+        fillSearch("уточка");
         List<String> searchResults = searchPage.getSearchResultAllItemsTitleText();
 
         SoftAssertions softAssertions = new SoftAssertions();
         for (String result : searchResults) {
-            softAssertions.assertThat(result.toLowerCase().contains(SEARCH_TERM_PARTIAL))
+            softAssertions.assertThat(result.toLowerCase().contains("уточка"))
                     .withFailMessage("Результат не содержит искомое слово: %s", result)
                     .isTrue();
         }
@@ -53,9 +48,9 @@ public class SearchTest extends BaseTest {
     @Test
     @DisplayName("Поиск по несуществующему слову")
     public void searchReturnNoResult() {
-        fillSearch(SEARCH_TERM_INVALID);
+        fillSearch("asfsaf");
 
-        Assertions.assertEquals(NO_RESULTS_MESSAGE, searchPage.getNotFountTitle(),
+        Assertions.assertEquals("Ничего не найдено.", searchPage.getNotFountTitle(),
                 "Сообщение об отсутствии результатов некорректное");
     }
 }

@@ -18,8 +18,8 @@ public class SearchPage {
         driver = WebDriver.getDriver();
     }
 
-    public void sandKeysSearch(String search) {
-        WebDriver.sandKeysToElement(INPUT_SEARCH, search);
+    public void sendKeysSearch(String search) {
+        WebDriver.sendKeysToElement(INPUT_SEARCH, search);
     }
 
     public void startSearch() {

@@ -12,7 +12,6 @@ public class LoginPage {
 
     public LoginPage() {
         driver = WebDriver.getDriver();
-
     }
 
     public void clickInputSubmit() {
@@ -20,24 +19,32 @@ public class LoginPage {
     }
 
     public String getTextErrorPassword() {
-        return WebDriver.getTextFromElement(ERROR_PASSWORD_TEXT);
+        try {
+            return WebDriver.getTextFromElement(ERROR_PASSWORD_TEXT);
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public String getTextErrorLogin() {
-        return WebDriver.getTextFromElement(ERROR_LOGIN_TEXT);
+        try {
+            return WebDriver.getTextFromElement(ERROR_LOGIN_TEXT);
+        } catch (Exception e) {
+            return "";
+        }
     }
 
     public void fillLoginFormStep(String login, String password) {
-        sandKeysUserLogin(login);
-        sandKeysUserPassword(password);
+        sendKeysUserLogin(login);
+        sendKeysUserPassword(password);
         clickInputSubmit();
     }
 
-    private void sandKeysUserPassword(String password) {
-        WebDriver.sandKeysToElement(USER_PASSWORD, password);
+    private void sendKeysUserPassword(String password) {
+        WebDriver.sendKeysToElement(USER_PASSWORD, password);
     }
 
-    private void sandKeysUserLogin(String login) {
-        WebDriver.sandKeysToElement(USER_LOGIN, login);
+    private void sendKeysUserLogin(String login) {
+        WebDriver.sendKeysToElement(USER_LOGIN, login);
     }
 }
