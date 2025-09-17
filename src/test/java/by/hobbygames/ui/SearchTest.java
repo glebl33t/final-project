@@ -1,4 +1,3 @@
-package by.hobbygames.ui;
 
 import by.hobbygames.ui.pages.SearchPage;
 import org.assertj.core.api.SoftAssertions;

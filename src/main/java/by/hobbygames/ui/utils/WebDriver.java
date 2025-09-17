@@ -13,7 +13,7 @@ public class WebDriver {
         if (driver == null) {
             driver = new ChromeDriver();
             driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(2));
         }
         return driver;
     }

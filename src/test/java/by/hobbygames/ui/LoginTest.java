@@ -1,5 +1,3 @@
-package by.hobbygames.ui;
-
 import by.hobbygames.ui.pages.LoginPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -30,11 +28,13 @@ public class LoginTest extends BaseTest {
 
         if (password.isEmpty()) {
             if (!passwordError.isEmpty()) {
-                Assertions.assertTrue(passwordError.contains("Введите пароль"), "Ошибка под паролем неверная: " + passwordError);
+                Assertions.assertTrue(passwordError.contains("Введите пароль"),
+                        "Ошибка под паролем неверная: " + passwordError);
             }
         } else {
             if (!passwordError.isEmpty()) {
-                Assertions.assertTrue(passwordError.contains("Неверный пароль"), "Ошибка под паролем неверная: " + passwordError);
+                Assertions.assertTrue(passwordError.contains("Неверный пароль"),
+                        "Ошибка под паролем неверная: " + passwordError);
             }
         }
     }

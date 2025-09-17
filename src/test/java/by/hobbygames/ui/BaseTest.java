@@ -1,4 +1,3 @@
-package by.hobbygames.ui;
 
 import by.hobbygames.ui.pages.HomePage;
 import by.hobbygames.ui.utils.WebDriver;
