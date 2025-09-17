@@ -44,7 +44,6 @@ public class SearchServiceTest {
         String responseBody = service.getResponseBody();
 
         assertEquals(200, statusCode, "Статус-код должен быть 200");
-        // В зависимости от поведения сайта — может вернуть всё
         assertFalse(responseBody.isEmpty(), "Ответ не должен быть пустым");
     }
 }
