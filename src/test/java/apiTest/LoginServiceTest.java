@@ -1,7 +1,10 @@
-import by.hobbygames.api.LoginService;
+package apiTest;
+
+import api.LoginService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import ui.utils.Generators;
 
 public class LoginServiceTest {
 
@@ -18,7 +21,9 @@ public class LoginServiceTest {
     @DisplayName("test #2")
     void checkLoginSuccessField() {
         LoginService service = new LoginService();
-        service.doRequest("375444444444", "qwertyqwerty");
+        String email = Generators.generateEmail();
+        String password = Generators.generateRandomPassword(10);
+        service.doRequest(email, password);
 
         System.out.println(service.getBody());
         Assertions.assertEquals(200, service.getStatusCode());
@@ -28,7 +33,9 @@ public class LoginServiceTest {
     @DisplayName("test #3")
     public void testLogin3() {
         LoginService service = new LoginService();
-        service.doRequest("login=&password=&scenario=email");
+        String email = Generators.generateEmail();
+        String password = "";
+        service.doRequest(email, password);
 
         System.out.println(service.getBody());
         Assertions.assertEquals(200, service.getStatusCode());
