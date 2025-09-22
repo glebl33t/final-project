@@ -1,4 +1,4 @@
-package by.hobbygames.api;
+package api;
 
 import io.restassured.response.Response;
 
@@ -7,8 +7,8 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
-public class SearchService {
-    private final String URL = "https://hobbygames.by/catalog/search";
+public class SearchService  extends  BaseService{
+    private String URL = getBASE_URL()+"/catalog/search";
     private Response response;
 
     public void doRequest(String search) {

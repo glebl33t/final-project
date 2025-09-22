@@ -1,12 +1,15 @@
+package uiTest;
 
-import by.hobbygames.ui.pages.HomePage;
-import by.hobbygames.ui.utils.WebDriver;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.WebDriver;
+import ui.pages.HomePage;
+import ui.utils.Driver;
 
 public class BaseTest {
 
     protected HomePage homePage;
+    protected WebDriver driver;
 
     @BeforeEach
     public void openSite() {
@@ -16,6 +19,6 @@ public class BaseTest {
 
     @AfterEach
     public void tearDown() {
-        WebDriver.quit();
+        Driver.quit();
     }
 }

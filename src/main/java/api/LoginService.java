@@ -1,4 +1,4 @@
-package by.hobbygames.api;
+package api;
 
 import io.restassured.response.Response;
 
@@ -7,8 +7,8 @@ import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
-public class LoginService {
-    private final String URL = "https://hobbygames.by/?route=account/login/modalAjax";
+public class LoginService extends BaseService {
+    private String URL = getBASE_URL() + "/";
     private final String BODY_DEFAULT = "login=375444444444&password=421421412&scenario=email";
     private final String BODY_TEMPLATE = "login=%s&password=%s&scenario=email";
     private Response response;
@@ -25,12 +25,8 @@ public class LoginService {
         sandRequest(BODY_DEFAULT);
     }
 
-    public void doRequest(String body) {
-        sandRequest(body);
-    }
-
-    public void doRequest(String login, String password) {
-        sandRequest(getBody(login, password));
+    public void doRequest(String email, String password) {
+        sandRequest(getBody(email, password));
     }
 
     private Map<String, String> getHeaders() {
@@ -46,8 +42,8 @@ public class LoginService {
         return queryParams;
     }
 
-    private String getBody(String login, String password) {
-        return String.format(BODY_TEMPLATE, login, password);
+    private String getBody(String email, String password) {
+        return String.format(BODY_TEMPLATE, email, password);
     }
 
     public String getBody() {
