@@ -20,15 +20,15 @@ public class SearchPage {
     }
 
     public void sendKeysSearch(String search) {
-        Driver.sendKeysToElement(INPUT_SEARCH, search);
+        Driver.sandKeys(INPUT_SEARCH, search);
     }
 
     public void startSearch() {
-        Driver.clickElement(ICON_SEARCH);
+        Driver.click(ICON_SEARCH);
     }
 
     public String getSearchResultFirstItemTitleText() {
-        return Driver.getTextFromElement(ELEMENT_TITLE);
+        return Driver.getText(ELEMENT_TITLE);
     }
 
     public List<String> getSearchResultAllItemsTitleText() {
@@ -42,6 +42,6 @@ public class SearchPage {
     }
 
     public String getNotFoundTitle() {
-        return Driver.getTextFromElement(NOT_FOUND_TITLE);
+        return Driver.getText(NOT_FOUND_TITLE);
     }
 }

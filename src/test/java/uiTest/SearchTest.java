@@ -37,9 +37,9 @@ public class SearchTest extends BaseTest {
     }
 
     @Test
-    @DisplayName("Поиск по ключевому слову 'уточка'")
+    @DisplayName("Поиск по ключевому слову")
     public void searchAllProductsByName() {
-        String search = "уточка";
+        String search = "монополия";
         performSearch(search);
         List<String> searchResults = searchPage.getSearchResultAllItemsTitleText();
 
@@ -59,7 +59,7 @@ public class SearchTest extends BaseTest {
         performSearch(search);
 
         String expectedMessage = searchPage.getNotFoundTitle();
-        String actualMessage = Driver.getTextFromElement("//div[@class='result']");
+        String actualMessage = Driver.getText("//div[@class='result']");
 
         Assertions.assertEquals(expectedMessage, actualMessage,
                 "Некорректное сообщение об отсутствии результатов. Ожидалось: '" + expectedMessage + "', но было: '" + actualMessage + "'");

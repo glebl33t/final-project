@@ -1,9 +1,6 @@
 package ui.utils;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -11,13 +8,17 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class Driver {
-    public static WebDriver driver;
+    private static WebDriver driver;
+    private static final Duration TIMEOUT = Duration.ofSeconds(10);
+
+    private Driver() {
+    }
 
     public static WebDriver getDriver() {
         if (driver == null) {
             driver = new ChromeDriver();
             driver.manage().window().maximize();
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            driver.manage().timeouts().implicitlyWait(TIMEOUT);
         }
         return driver;
     }
@@ -33,7 +34,7 @@ public class Driver {
         return getDriver().findElement(By.xpath(xpath));
     }
 
-    public static void clickElement(String xpath) {
+    public static void click(String xpath) {
         WebDriver driver = getDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
@@ -41,11 +42,25 @@ public class Driver {
         element.click();
     }
 
-    public static void sendKeysToElement(String xpath, String value) {
-        findElement(xpath).sendKeys(value);
+    public static void sandKeys(String xpath, String value) {
+        WebElement element = findElement(xpath);
+        element.clear();
+        element.sendKeys(value);
     }
 
-    public static String getTextFromElement(String xpath) {
-        return findElement(xpath).getText();
+    public static String getText(String xpath) {
+        WebDriver driver = getDriver();
+        WebDriverWait wait = new WebDriverWait(driver, TIMEOUT);
+        int attempts = 0;
+        while (attempts < 3) {
+            try {
+                WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+                return element.getText();
+            } catch (StaleElementReferenceException e) {
+                attempts++;
+            }
+        }
+        throw new RuntimeException("Failed to get text from element due to stale element after retries: " + xpath);
     }
+
 }

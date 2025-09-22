@@ -7,7 +7,7 @@ import ui.pages.HomePage;
 import ui.utils.Driver;
 
 public class BaseTest {
-
+//    private static final Logger logger = LogManager.getLogger();
     protected HomePage homePage;
     protected WebDriver driver;
 
