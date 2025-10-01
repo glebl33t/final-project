@@ -28,8 +28,8 @@ public final class Generators {
     }
 
     public static String generateRandomString(int length) {
-        int leftLimit = 97;  // 'a'
-        int rightLimit = 122; // 'z'
+        int leftLimit = 97;
+        int rightLimit = 122;
 
         return RANDOM.ints(leftLimit, rightLimit + 1)
                 .limit(length)

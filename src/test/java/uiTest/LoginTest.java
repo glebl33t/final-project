@@ -74,7 +74,7 @@ public class LoginTest extends BaseTest {
         );
     }
 
-    @Disabled("Отключен")
+    @Disabled("Временно отключен из-за блокировки аккаунта")
     @Test
     @DisplayName("Успешная авторизация")
     public void successfulLogin() {

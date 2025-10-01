@@ -13,6 +13,7 @@ public class SearchPage {
     String ICON_SEARCH = "//span[@class='icon icon-ic_search_black search-btn']";
     String ELEMENT_TITLE = "//div[@class='product-card-title']//a[@class=' ']";
     String NOT_FOUND_TITLE = "//div[@class='result']";
+
     private WebDriver driver;
 
     public SearchPage() {

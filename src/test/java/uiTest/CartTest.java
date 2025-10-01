@@ -61,7 +61,7 @@ public class CartTest extends BaseTest {
     @DisplayName("Добавление одного товара в корзину должно отображаться корректно")
     public void shouldDisplayCorrectTextWhenOneProductAdded() {
         addFirstProductAndOpenCart();
-        String expectedText = "2 товара";
+        String expectedText = "1 товар";
         String actualText = cartPage.getCartSummaryText(expectedText);
 
         Assertions.assertTrue(actualText.contains(expectedText),

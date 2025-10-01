@@ -15,33 +15,33 @@ import ui.utils.Generators;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SearchServiceTest {
-    private static final Logger logger = LogManager.getLogger();
+    private static final Logger logger = LogManager.getLogger(SearchServiceTest.class);
 
     @Test
     @DisplayName("Поиск по существующему товару — 'Монополия'")
     public void testSearchForExistingProduct() {
+        logger.info("Запускаем тест: Поиск по существующему товару — 'Монополия'");
 
-        logger.info("Выполняем тест 'Поиск по существующему товару — 'Монополия' '");
         SearchService service = new SearchService();
         String searchName = "Монополия";
         service.doRequest(searchName);
 
         int statusCode = service.getResponseStatusCode();
         String responseBody = service.getResponseBody();
+
         Document doc = Jsoup.parse(responseBody);
 
-        String productCardNameText = "//div[@class='product-card-title']//a";
-        Elements searchCardTitles = doc.selectXpath(productCardNameText);
-        Element card1 = searchCardTitles.get(0);
+        String productCardNameXpath = "//div[@class='product-card-title']//a";
+        Elements searchCardTitles = doc.selectXpath(productCardNameXpath);
+        Element firstCard = searchCardTitles.first();
 
-        String actual = card1.text();
-        actual = actual.substring(0, 9);
+        assertNotNull(firstCard, "Должна быть хотя бы одна карточка товара");
+        String actual = firstCard.text().substring(0, Math.min(9, firstCard.text().length()));
 
-        logger.info(("Ищем в поисковой строке : " + searchName));
+        logger.info("Ожидаемый товар: '{}', Найденный товар в ответе: '{}'", searchName, actual);
+
         Assertions.assertEquals(searchName, actual);
         assertEquals(200, statusCode, "Статус-код должен быть 200");
-
-        // Перенести в SearchService
     }
 
     @Test
@@ -49,15 +49,21 @@ public class SearchServiceTest {
     public void testSearchForNonExistingProduct() {
         SearchService service = new SearchService();
         String search = Generators.generateRandomString(6);
+
+        logger.info("Запускаем тест: Поиск по несуществующему товару с ключевым словом '{}'", search);
+
         service.doRequest(search);
 
         int statusCode = service.getResponseStatusCode();
         String responseBody = service.getResponseBody();
 
+        logger.info("Ответ сервера (status={}): {}", statusCode, responseBody);
+
         assertEquals(200, statusCode, "Статус-код должен быть 200");
         assertTrue(responseBody.contains("ничего не найдено") ||
-                responseBody.contains("0 товаров") ||
-                responseBody.toLowerCase().contains("ничего"), "Ожидается сообщение об отсутствии результатов");
+                        responseBody.contains("0 товаров") ||
+                        responseBody.toLowerCase().contains("ничего"),
+                "Ожидается сообщение об отсутствии результатов");
     }
 
     @Test
@@ -65,12 +71,16 @@ public class SearchServiceTest {
     public void testSearchWithEmptyString() {
         SearchService service = new SearchService();
         String search = "";
+
+        logger.info("Запускаем тест: Поиск с пустой строкой");
+
         service.doRequest(search);
 
         int statusCode = service.getResponseStatusCode();
-        String responseBody = service.getResponseBody();
+
+        logger.info("Ответ сервера status={}", statusCode);
 
         assertEquals(200, statusCode, "Статус-код должен быть 200");
-        assertFalse(responseBody.isEmpty(), "Ответ не должен быть пустым");
+        assertFalse(service.getResponseBody().isEmpty(), "Ответ не должен быть пустым");
     }
 }
