@@ -60,11 +60,14 @@ public class SearchServiceTest {
         logger.info("Ответ сервера (status={}): {}", statusCode, responseBody);
 
         assertEquals(200, statusCode, "Статус-код должен быть 200");
-        assertTrue(responseBody.contains("ничего не найдено") ||
-                        responseBody.contains("0 товаров") ||
-                        responseBody.toLowerCase().contains("ничего"),
-                "Ожидается сообщение об отсутствии результатов");
+
+        Document doc = Jsoup.parse(responseBody);
+
+        Elements productCards = doc.selectXpath("//div[@class='product-card-title']//a");
+
+        assertTrue(productCards.isEmpty(), "Ожидается отсутствие результатов поиска");
     }
+
 
     @Test
     @DisplayName("Поиск с пустой строкой")
