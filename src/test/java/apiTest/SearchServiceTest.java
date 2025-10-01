@@ -29,7 +29,7 @@ public class SearchServiceTest {
         int statusCode = service.getResponseStatusCode();
         String responseBody = service.getResponseBody();
 
-        Document doc = Jsoup.parse(responseBody);
+        Document doc = Jsoup.parse(responseBody, "UTF=8");
 
         String productCardNameXpath = "//div[@class='product-card-title']//a";
         Elements searchCardTitles = doc.selectXpath(productCardNameXpath);
@@ -61,7 +61,7 @@ public class SearchServiceTest {
 
         assertEquals(200, statusCode, "Статус-код должен быть 200");
 
-        Document doc = Jsoup.parse(responseBody);
+        Document doc = Jsoup.parse(responseBody, "UTF=8");
 
         Elements productCards = doc.selectXpath("//div[@class='product-card-title']//a");
 
