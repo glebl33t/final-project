@@ -4,6 +4,7 @@ import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,6 +52,6 @@ public class LoginService extends BaseService {
     }
 
     public String getResponseBody() {
-        return response.getBody().asPrettyString();
+        return new String(response.getBody().asByteArray(), StandardCharsets.UTF_8);
     }
 }
