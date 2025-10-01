@@ -2,6 +2,7 @@ package ui.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ui.utils.Driver;
 
@@ -49,7 +50,11 @@ public class CartPage {
     public String getEmptyCartPriceText(String expectedText) {
         WebDriver driver = Driver.getDriver();
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(d -> d.findElement(By.xpath(ITEM_LIST_EMPTY)).getText().contains(expectedText));
+
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(
+                By.xpath(ITEM_LIST_EMPTY), expectedText
+        ));
+
         return driver.findElement(By.xpath(ITEM_LIST_EMPTY)).getText();
     }
 
