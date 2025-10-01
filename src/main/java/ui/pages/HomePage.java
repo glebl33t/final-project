@@ -1,28 +1,32 @@
-package by.hobbygames.ui.pages;
+package ui.pages;
 
-import by.hobbygames.ui.utils.WebDriver;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import ui.utils.Driver;
+import org.openqa.selenium.WebDriver;
 
 public class HomePage {
     private final String URL = "https://hobbygames.by/";
     private final String PERSONAL_LINK = "//a[@href='/login']";
     private final String CLOSE_COOKIE = "//div[@class='cookie-banner__button']//button";
-    private org.openqa.selenium.WebDriver driver;
+    private static final Logger logger = LogManager.getLogger();
+    private WebDriver driver;
 
     public HomePage() {
-        driver = WebDriver.getDriver();
+        driver = Driver.getDriver();
     }
 
     public HomePage openSite() {
-        WebDriver.getDriver().get(URL);
+        Driver.getDriver().get(URL);
         return this;
     }
 
     public HomePage closeCookie(){
-        WebDriver.clickElement(CLOSE_COOKIE);
+        Driver.click(CLOSE_COOKIE);
         return this;
     }
 
     public void clickPersonalLink() {
-        WebDriver.clickElement(PERSONAL_LINK);
+        Driver.click(PERSONAL_LINK);
     }
 }
