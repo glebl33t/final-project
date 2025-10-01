@@ -9,6 +9,7 @@ import ui.utils.Driver;
 import java.time.Duration;
 
 public class CartPage {
+
     private final String CATALOG_BOARD_GAMES = "/html/body/div[1]/div[4]/div[2]/nav/ul/li[1]/a";
     private final String LINK_ICON_CART = "//a[@class='with-icon cart-status cart-column cart-count']";
     private final String INPUT_FIRST_ITEM_BUY = "(//a[@data-block-type='main-block'])[1]";
@@ -23,41 +24,57 @@ public class CartPage {
     private final String BUTTON_PRODUCT_PLUS_CART = "//button[@data-action='plus']";
     private final String BUTTON_PRODUCT_MINUS_CART = "//button[@data-action='minus']";
 
+    private final WebDriver driver = Driver.getDriver();
+    private final WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
+    private void clickWithRetry(String xpath) {
+        for (int i = 0; i < 3; i++) {
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+                driver.findElement(By.xpath(xpath)).click();
+                break;
+            } catch (org.openqa.selenium.StaleElementReferenceException e) {
+            }
+        }
+    }
+
     public void clickCatalogBoardsGames() {
-        Driver.click(CATALOG_BOARD_GAMES);
+        clickWithRetry(CATALOG_BOARD_GAMES);
+    }
+
+    public void clickLinkIconCart() {
+        clickWithRetry(LINK_ICON_CART);
+    }
+
+    public void clickInputFirstItemBuy() {
+        clickWithRetry(INPUT_FIRST_ITEM_BUY);
+    }
+
+    public void clickInputSecondItemBuy() {
+        clickWithRetry(INPUT_SECOND_ITEM_BUY);
     }
 
     public void clickButtonProductPlusCart() {
-        Driver.click(BUTTON_PRODUCT_PLUS_CART);
+        clickWithRetry(BUTTON_PRODUCT_PLUS_CART);
     }
 
     public void clickButtonProductMinusCart() {
-        Driver.click(BUTTON_PRODUCT_MINUS_CART);
+        clickWithRetry(BUTTON_PRODUCT_MINUS_CART);
+    }
+
+    public void clickButtonIconRemove() {
+        clickWithRetry(BUTTON_ICON_REMOVE);
     }
 
     public String getCartSummaryText(String expectedText) {
-        WebDriver driver = Driver.getDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(driver1 -> driver1.findElement(By.xpath(CART_SUMMARY_TEXT)).getText().contains(expectedText));
+        wait.until(driver -> driver.findElement(By.xpath(CART_SUMMARY_TEXT)).getText().contains(expectedText));
         return driver.findElement(By.xpath(CART_SUMMARY_TEXT)).getText();
     }
 
-
-    public void clickButtonIconRemove() {
-        Driver.click(BUTTON_ICON_REMOVE);
-    }
-
     public String getEmptyCartPriceText(String expectedText) {
-        WebDriver driver = Driver.getDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        wait.until(ExpectedConditions.textToBePresentInElementLocated(
-                By.xpath(ITEM_LIST_EMPTY), expectedText
-        ));
-
+        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath(ITEM_LIST_EMPTY), expectedText));
         return driver.findElement(By.xpath(ITEM_LIST_EMPTY)).getText();
     }
-
 
     public String getPriceFirstProduct() {
         return Driver.getText(PRICE_FIRST_PRODUCT);
@@ -73,17 +90,5 @@ public class CartPage {
 
     public String getNameSecondProduct() {
         return Driver.getText(TITLE_SECOND_PRODUCT_NAME);
-    }
-
-    public void clickLinkIconCart() {
-        Driver.click(LINK_ICON_CART);
-    }
-
-    public void clickInputFirstItemBuy() {
-        Driver.click(INPUT_FIRST_ITEM_BUY);
-    }
-
-    public void clickInputSecondItemBuy() {
-        Driver.click(INPUT_SECOND_ITEM_BUY);
     }
 }
