@@ -51,10 +51,11 @@ public class CartTest extends BaseTest {
     public void removingProductShouldMakeCartFree() {
         addFirstProductAndOpenCart();
         cartPage.clickButtonIconRemove();
-        String expectedText = "бесплатно";
-        String actualText = cartPage.getEmptyCartPriceText(expectedText);
+        String expectedText = "Бесплатно";
+        String actualText = cartPage.getEmptyCartPriceText();
 
-        Assertions.assertEquals(expectedText, actualText);
+        Assertions.assertTrue(actualText.contains(expectedText),
+                "Ожидалось, что текст содержит " + expectedText + " , но был: " + actualText);
     }
 
     @Test

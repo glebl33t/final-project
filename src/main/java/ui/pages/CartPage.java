@@ -71,9 +71,9 @@ public class CartPage {
         return driver.findElement(By.xpath(CART_SUMMARY_TEXT)).getText();
     }
 
-    public String getEmptyCartPriceText(String expectedText) {
-        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath(ITEM_LIST_EMPTY), expectedText));
-        return driver.findElement(By.xpath(ITEM_LIST_EMPTY)).getText();
+    public String getEmptyCartPriceText() {
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(ITEM_LIST_EMPTY)));
+        return driver.findElement(By.xpath(ITEM_LIST_EMPTY)).getText().trim();
     }
 
     public String getPriceFirstProduct() {
