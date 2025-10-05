@@ -19,13 +19,6 @@
     </properties>
 
     <dependencies>
-        <!-- SQLite -->
-        <dependency>
-            <groupId>org.xerial</groupId>
-            <artifactId>sqlite-jdbc</artifactId>
-            <version>3.50.3.0</version>
-        </dependency>
-
         <!-- Allure -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
@@ -77,7 +70,7 @@
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-java</artifactId>
-            <version>4.35.0</version>
+            <version>4.36.0</version>
         </dependency>
 
         <!-- AssertJ -->
@@ -123,6 +116,11 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j2-impl</artifactId>
+            <version>2.25.1</version>
         </dependency>
     </dependencies>
 
