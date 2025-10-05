@@ -7,7 +7,6 @@ import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import ui.utils.Generators;
@@ -70,7 +69,7 @@ public class LoginServiceTest {
     }
 
     @Test
-    @Disabled("Отключен")
+//    @Disabled("Отключен")
     @DisplayName("Успешная авторизация")
     public void successfulLogin() throws Exception {
         String email = "glebtolst1k@mail.ru";

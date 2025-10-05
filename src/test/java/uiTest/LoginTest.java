@@ -57,7 +57,7 @@ public class LoginTest extends BaseTest {
         checkLoginAndPasswordErrors();
     }
 
-    @Disabled("Временно отключен из-за блокировки аккаунта")
+//    @Disabled("Временно отключен из-за блокировки аккаунта")
     @Test
     @Story("Успешная авторизация")
     @DisplayName("Успешная авторизация")
