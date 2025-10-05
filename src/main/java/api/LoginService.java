@@ -13,14 +13,9 @@ import static io.restassured.RestAssured.given;
 public class LoginService extends BaseService {
     private static final Logger logger = LogManager.getLogger(LoginService.class);
     private final String URL = getBASE_URL() + "/";
-    private final String BODY_DEFAULT = "login=375444444444&password=421421412&scenario=email";
     private final String BODY_TEMPLATE = "login=%s&password=%s&scenario=email";
 
     private Response response;
-
-    public void doRequest() {
-        doRequestWithBody(BODY_DEFAULT);
-    }
 
     public void doRequest(String email, String password) {
         String body = String.format(BODY_TEMPLATE, email, password);

@@ -41,7 +41,7 @@
 * │
 * └── test/java/
 * ├── apiTest/ # API тесты
-* └── uiTest/ # UI тесты (BaseTest, LoginTest, и др.)
+* └── uiTest/ # UI тесты 
 
 ---
 
