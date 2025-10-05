@@ -21,7 +21,7 @@ public class HomePage {
         return this;
     }
 
-    public HomePage closeCookie(){
+    public HomePage closeCookie() {
         Driver.click(CLOSE_COOKIE);
         return this;
     }

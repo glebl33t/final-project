@@ -68,22 +68,20 @@ public class CartPage {
     }
 
     public String getCartSummaryText(String expectedText) {
-        for (int i = 0; i < 3; i++) { // пробуем до 3 раз
+        for (int i = 0; i < 3; i++) {
             try {
                 WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CART_SUMMARY_TEXT)));
-                // Ждём пока текст появится
                 wait.until(driver -> element.getText().contains(expectedText));
                 return element.getText();
             } catch (org.openqa.selenium.StaleElementReferenceException e) {
-                // если элемент устарел — попробуем снова
                 try {
                     Thread.sleep(200);
-                } catch (InterruptedException ignored) {}
+                } catch (InterruptedException ignored) {
+                }
             }
         }
         throw new RuntimeException("Не удалось получить текст корзины после 3 попыток");
     }
-
 
     public String getEmptyCartPriceText() {
         for (int i = 0; i < 3; i++) {
@@ -93,12 +91,12 @@ public class CartPage {
             } catch (org.openqa.selenium.StaleElementReferenceException e) {
                 try {
                     Thread.sleep(200);
-                } catch (InterruptedException ignored) {}
+                } catch (InterruptedException ignored) {
+                }
             }
         }
         throw new RuntimeException("Не удалось получить текст пустой корзины после 3 попыток");
     }
-
 
     public String getPriceFirstProduct() {
         return Driver.getText(PRICE_FIRST_PRODUCT);
