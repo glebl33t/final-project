@@ -32,24 +32,26 @@
 ---
 
 ## 📂 Структура проекта
-
+```
 src/
 ├── main/
-│ └── java/
-│ ├── api/ # Сервисы API (LoginService, SearchService)
-│ ├── ui/
-│ │ ├── pages/ # Page Object Model страницы UI
-│ │ └── utils/ # WebDriver (Singleton), вспомогательные утилиты и генераторы
-│ └── config/ # Конфигурация: логирование, properties
+│   └── java/
+│       ├── api/            # Сервисы API (LoginService, SearchService)
+│       ├── ui/
+│       │   ├── pages/      # Page Object Model страницы UI
+│       │   └── utils/      # WebDriver (Singleton), вспомогательные утилиты и генераторы
+│       └── config/         # Конфигурация: логирование, properties
 └── test/
 └── java/
-├── apiTest/ # API тесты
-│ ├── LoginServiceTest
-│ └── SearchServiceTest
-└── uiTest/ # UI тесты
+├── apiTest/        # API тесты
+│   ├── LoginServiceTest
+│   └── SearchServiceTest
+└── uiTest/         # UI тесты
+├── BaseTest
 ├── CartTest
 ├── LoginTest
 └── SearchTest
+```
 
 ---
 
