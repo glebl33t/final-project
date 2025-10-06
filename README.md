@@ -47,10 +47,10 @@ src/
 │   ├── LoginServiceTest
 │   └── SearchServiceTest
 └── uiTest/         # UI тесты
-├── BaseTest
-├── CartTest
-├── LoginTest
-└── SearchTest
+    ├── BaseTest
+    ├── CartTest
+    ├── LoginTest
+    └── SearchTest
 ```
 
 ---
