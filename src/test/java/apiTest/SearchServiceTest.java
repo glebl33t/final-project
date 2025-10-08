@@ -1,7 +1,10 @@
 package apiTest;
 
 import api.SearchService;
-import io.qameta.allure.*;
+import io.qameta.allure.Allure;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jsoup.Jsoup;
@@ -10,7 +13,6 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import ui.utils.Generators;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -54,7 +56,7 @@ public class SearchServiceTest {
     public void testSearchForNonExistingProduct() {
         Allure.step("Поиск по несуществующему товару", () -> {
             SearchService service = new SearchService();
-            String search = Generators.generateRandomString(6);
+            String search = "weqfafas";
 
             service.doRequest(search);
 

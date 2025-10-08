@@ -1,13 +1,18 @@
 package uiTest;
 
-import io.qameta.allure.*;
-import org.junit.jupiter.api.*;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Step;
+import io.qameta.allure.Story;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ui.pages.SearchPage;
 import ui.utils.Driver;
-import ui.utils.Generators;
 
 import java.util.List;
 
@@ -73,7 +78,7 @@ public class SearchTest extends BaseTest {
     @Story("Поиск по несуществующему слову")
     @DisplayName("Поиск по несуществующему слову")
     public void searchReturnNoResult() {
-        String search = Generators.generateRandomString(6);
+        String search = "weqfafas";
         performSearch(search);
 
         String expectedMessage = searchPage.getNotFoundTitle();
