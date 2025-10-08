@@ -1,5 +1,6 @@
 package api;
 
+import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -31,7 +32,7 @@ public class BaseService {
                 .then()
                 .extract().response();
 
-        logger.info("Ответ: код {} \n{}", response.getStatusCode(), response.getBody().asPrettyString());
+        logger.info("Ответ: код {}, заголовки: {}", response.getStatusCode(), response.getHeaders());
         return response;
     }
 

@@ -1,13 +1,16 @@
 package api;
 
+import io.restassured.http.Cookies;
 import io.restassured.response.Response;
 
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class LoginService extends BaseService {
 
-    private final String PATH = "/";
+    private final String PATH = "/index.php";
     private final String BODY_TEMPLATE = "login=%s&password=%s&scenario=email";
     private Response response;
 

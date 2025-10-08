@@ -62,5 +62,4 @@ public class Driver {
         }
         throw new RuntimeException("Failed to get text from element due to stale element after retries: " + xpath);
     }
-
 }

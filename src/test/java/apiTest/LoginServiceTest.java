@@ -5,8 +5,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Attachment;
 import io.qameta.allure.Step;
+import io.restassured.RestAssured;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,6 +20,11 @@ public class LoginServiceTest {
 
     private static final Logger logger = LogManager.getLogger(LoginServiceTest.class);
     private static final ObjectMapper mapper = new ObjectMapper();
+
+    @BeforeEach
+    void setup() {
+        RestAssured.reset();
+    }
 
     @Step("Выполнение запроса авторизации с email: {email} и паролем: {password}")
     private JsonNode performLogin(String email, String password) throws Exception {
@@ -63,7 +70,8 @@ public class LoginServiceTest {
     @Test
     @DisplayName("Авторизация без логина и пароля")
     public void loginWithoutCredentials() throws Exception {
-        JsonNode json = performLogin("", "");
+        final String empty = "";
+        JsonNode json = performLogin(empty, empty);
 
         assertFalse(json.path("success").asBoolean(), "Авторизация прошла успешно без логина и пароля!");
         assertTrue(json.has("errors"), "Должны быть ошибки при отсутствии данных");
@@ -74,7 +82,7 @@ public class LoginServiceTest {
     @DisplayName("Успешная авторизация")
     public void successfulLogin() throws Exception {
         String email = "glebtolst1k@mail.ru";
-        String password = "G2x4fOft";
+        String password = "quasoupuness";
 
         JsonNode json = performLogin(email, password);
 

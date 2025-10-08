@@ -75,12 +75,14 @@ public class LoginPage {
     public void clickPersonalAccount() {
         logger.info("Нажатие на иконку личного кабинета");
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class='global-loader' and contains(@style, 'display: block')]")));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.className("vex-overlay")));
+
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(BUTTON_PERSONAL_ACCOUNT)));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
         element.click();
     }
-
 
     public String getTextNamePersonalAccount() {
         logger.info("Получение имени пользователя из личного кабинета");

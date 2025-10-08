@@ -63,13 +63,14 @@ public class SearchServiceTest {
             int statusCode = service.getResponseStatusCode();
             String responseBody = service.getResponseBody();
 
-            logger.info("Ответ сервера (status={}): {}", statusCode, responseBody);
+            Document doc = Jsoup.parse(responseBody, "UTF-8");
+            String title = doc.title();
+            Elements productCards = doc.select("div.product-card-title a");
+
+            logger.info("Ответ сервера: статус = {}, заголовок страницы = '{}', количество карточек товара = {}",
+                    statusCode, title, productCards.size());
 
             assertEquals(200, statusCode, "Статус-код должен быть 200");
-
-            Document doc = Jsoup.parse(responseBody, "UTF-8");
-            Elements productCards = doc.selectXpath("//div[@class='product-card-title']//a");
-
             assertTrue(productCards.isEmpty(), "Ожидается отсутствие результатов поиска");
         });
     }

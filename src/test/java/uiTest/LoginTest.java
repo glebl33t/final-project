@@ -63,7 +63,7 @@ public class LoginTest extends BaseTest {
     @DisplayName("Успешная авторизация")
     public void successfulLogin() {
         String email = "glebtolst1k@mail.ru";
-        String password = "G2x4fOft";
+        String password = "quasoupuness";
         fillLoginForm(email, password);
 
         loginPage.clickPersonalAccount();
