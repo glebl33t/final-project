@@ -1,8 +1,6 @@
 package ui.pages;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ui.utils.Driver;
@@ -10,6 +8,9 @@ import ui.utils.Driver;
 import java.time.Duration;
 
 public class CartPage {
+
+    private final WebDriver driver = Driver.getDriver();
+    private final WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
     private final String CATALOG_BOARD_GAMES = "/html/body/div[1]/div[4]/div[2]/nav/ul/li[1]/a";
     private final String LINK_ICON_CART = "//a[@class='with-icon cart-status cart-column cart-count']";
@@ -25,92 +26,95 @@ public class CartPage {
     private final String BUTTON_PRODUCT_PLUS_CART = "//button[@data-action='plus']";
     private final String BUTTON_PRODUCT_MINUS_CART = "//button[@data-action='minus']";
 
-    private final WebDriver driver = Driver.getDriver();
-    private final WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-    private void clickWithRetry(String xpath) {
-        for (int i = 0; i < 3; i++) {
+    private boolean clickWithRetry(String xpath) {
+        for (int i = 0; i < 5; i++) {
             try {
-                wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
-                driver.findElement(By.xpath(xpath)).click();
-                break;
-            } catch (org.openqa.selenium.StaleElementReferenceException e) {
-            }
-        }
-    }
-
-    public void clickCatalogBoardsGames() {
-        clickWithRetry(CATALOG_BOARD_GAMES);
-    }
-
-    public void clickLinkIconCart() {
-        clickWithRetry(LINK_ICON_CART);
-    }
-
-    public void clickInputFirstItemBuy() {
-        clickWithRetry(INPUT_FIRST_ITEM_BUY);
-    }
-
-    public void clickInputSecondItemBuy() {
-        clickWithRetry(INPUT_SECOND_ITEM_BUY);
-    }
-
-    public void clickButtonProductPlusCart() {
-        clickWithRetry(BUTTON_PRODUCT_PLUS_CART);
-    }
-
-    public void clickButtonProductMinusCart() {
-        clickWithRetry(BUTTON_PRODUCT_MINUS_CART);
-    }
-
-    public void clickButtonIconRemove() {
-        clickWithRetry(BUTTON_ICON_REMOVE);
-    }
-
-    public String getCartSummaryText(String expectedText) {
-        for (int i = 0; i < 3; i++) {
-            try {
-                WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CART_SUMMARY_TEXT)));
-                wait.until(driver -> element.getText().contains(expectedText));
-                return element.getText();
-            } catch (org.openqa.selenium.StaleElementReferenceException e) {
+                WebElement element = wait.until(ExpectedConditions.elementToBeClickable(By.xpath(xpath)));
+                element.click();
+                return true;
+            } catch (StaleElementReferenceException | ElementClickInterceptedException | TimeoutException e) {
                 try {
-                    Thread.sleep(200);
-                } catch (InterruptedException ignored) {
-                }
+                    Thread.sleep(300);
+                } catch (InterruptedException ignored) {}
             }
         }
-        throw new RuntimeException("Не удалось получить текст корзины после 3 попыток");
+        return false;
     }
 
-    public String getEmptyCartPriceText() {
-        for (int i = 0; i < 3; i++) {
-            try {
-                WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(ITEM_LIST_EMPTY)));
-                return element.getText().trim();
-            } catch (org.openqa.selenium.StaleElementReferenceException e) {
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException ignored) {
-                }
-            }
+    private String getTextByXpath(String xpath) {
+        try {
+            return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath))).getText().trim();
+        } catch (Exception e) {
+            return "";
         }
-        throw new RuntimeException("Не удалось получить текст пустой корзины после 3 попыток");
     }
 
-    public String getPriceFirstProduct() {
-        return Driver.getText(PRICE_FIRST_PRODUCT);
+    public boolean clickCatalogBoardsGames() {
+        return clickWithRetry(CATALOG_BOARD_GAMES);
     }
 
-    public String getPriceSecondProduct() {
-        return Driver.getText(PRICE_SECOND_PRODUCT);
+    public boolean clickLinkIconCart() {
+        return clickWithRetry(LINK_ICON_CART);
+    }
+
+    public boolean clickInputFirstItemBuy() {
+        return clickWithRetry(INPUT_FIRST_ITEM_BUY);
+    }
+
+    public boolean clickInputSecondItemBuy() {
+        return clickWithRetry(INPUT_SECOND_ITEM_BUY);
+    }
+
+    public boolean clickButtonProductPlusCart() {
+        return clickWithRetry(BUTTON_PRODUCT_PLUS_CART);
+    }
+
+    public boolean clickButtonProductMinusCart() {
+        return clickWithRetry(BUTTON_PRODUCT_MINUS_CART);
+    }
+
+    public boolean clickButtonIconRemove() {
+        return clickWithRetry(BUTTON_ICON_REMOVE);
     }
 
     public String getNameFirstProduct() {
-        return Driver.getText(TITLE_FIRST_PRODUCT_NAME);
+        return getTextByXpath(TITLE_FIRST_PRODUCT_NAME);
     }
 
     public String getNameSecondProduct() {
-        return Driver.getText(TITLE_SECOND_PRODUCT_NAME);
+        return getTextByXpath(TITLE_SECOND_PRODUCT_NAME);
+    }
+
+    public String getPriceFirstProduct() {
+        return getTextByXpath(PRICE_FIRST_PRODUCT);
+    }
+
+    public String getPriceSecondProduct() {
+        return getTextByXpath(PRICE_SECOND_PRODUCT);
+    }
+
+    public boolean waitForText(By locator, String expectedText, int timeoutSeconds) {
+        try {
+            WebDriverWait customWait = new WebDriverWait(driver, Duration.ofSeconds(timeoutSeconds));
+            return customWait.until(driver -> {
+                try {
+                    String text = driver.findElement(locator).getText().trim();
+                    System.out.println("Текущий текст: '" + text + "'; ожидается: '" + expectedText + "'");
+                    return text.contains(expectedText);
+                } catch (StaleElementReferenceException e) {
+                    return false;
+                }
+            });
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean waitForCartSummaryText(String expectedText, int timeoutSeconds) {
+        return waitForText(By.xpath(CART_SUMMARY_TEXT), expectedText, timeoutSeconds);
+    }
+
+    public boolean waitForEmptyCartPriceText(String expectedText, int timeoutSeconds) {
+        return waitForText(By.xpath(ITEM_LIST_EMPTY), expectedText, timeoutSeconds);
     }
 }

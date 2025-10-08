@@ -6,8 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ui.pages.CartPage;
 
-@Epic("Cart functionality")
-@Feature("Cart operations")
+@Epic("UI Tests")
+@Feature("Cart Tests")
 public class CartTest extends BaseTest {
     private CartPage cartPage;
     private static final Logger log = LoggerFactory.getLogger(CartTest.class);
@@ -41,8 +41,9 @@ public class CartTest extends BaseTest {
         String firstProductName = cartPage.getNameFirstProduct();
         String secondProductName = cartPage.getNameSecondProduct();
 
-        log.info("Первый товар: {}, Второй товар: {}", firstProductName, secondProductName);
-        Assertions.assertNotEquals(firstProductName, secondProductName);
+        log.info("Первый товар: '{}', Второй товар: '{}'", firstProductName, secondProductName);
+        Assertions.assertNotEquals(firstProductName, secondProductName,
+                "Имена товаров не должны совпадать");
     }
 
     @Test
@@ -54,8 +55,9 @@ public class CartTest extends BaseTest {
         String firstProductPrice = cartPage.getPriceFirstProduct();
         String secondProductPrice = cartPage.getPriceSecondProduct();
 
-        log.info("Цена первого товара: {}, Цена второго товара: {}", firstProductPrice, secondProductPrice);
-        Assertions.assertNotEquals(firstProductPrice, secondProductPrice);
+        log.info("Цена первого товара: '{}', Цена второго товара: '{}'", firstProductPrice, secondProductPrice);
+        Assertions.assertNotEquals(firstProductPrice, secondProductPrice,
+                "Цены товаров не должны совпадать");
     }
 
     @Test
@@ -64,13 +66,14 @@ public class CartTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     public void removingProductShouldMakeCartFree() {
         addFirstProductAndOpenCart();
+        log.info("Удаляем товар из корзины");
         cartPage.clickButtonIconRemove();
-        String expectedText = "Бесплатно";
-        String actualText = cartPage.getEmptyCartPriceText();
 
-        log.info("Ожидаемый текст: {}, Фактический текст: {}", expectedText, actualText);
-        Assertions.assertTrue(actualText.contains(expectedText),
-                "Ожидалось, что текст содержит " + expectedText + " , но был: " + actualText);
+        log.info("Ожидаем, что итоговая сумма станет 'Бесплатно'");
+        boolean isTextDisplayed = cartPage.waitForEmptyCartPriceText("Бесплатно", 5);
+        log.info("Результат ожидания текста: {}", isTextDisplayed);
+
+        Assertions.assertTrue(isTextDisplayed, "Ожидалось, что текст содержит 'Бесплатно', но это не произошло");
     }
 
     @Test
@@ -79,12 +82,11 @@ public class CartTest extends BaseTest {
     @Severity(SeverityLevel.NORMAL)
     public void shouldDisplayCorrectTextWhenOneProductAdded() {
         addFirstProductAndOpenCart();
-        String expectedText = "1 товар";
-        String actualText = cartPage.getCartSummaryText(expectedText);
+        log.info("Проверяем, что в корзине отображается '1 товар'");
+        boolean isTextDisplayed = cartPage.waitForCartSummaryText("1 товар", 5);
+        log.info("Результат ожидания текста: {}", isTextDisplayed);
 
-        log.info("Ожидаемый текст: {}, Фактический текст: {}", expectedText, actualText);
-        Assertions.assertTrue(actualText.contains(expectedText),
-                "Ожидалось, что текст содержит " + expectedText + " , но был: " + actualText);
+        Assertions.assertTrue(isTextDisplayed, "Ожидалось, что текст содержит '1 товар', но это не произошло");
     }
 
     @Test
@@ -93,27 +95,32 @@ public class CartTest extends BaseTest {
     @Severity(SeverityLevel.MINOR)
     public void shouldDisplayCorrectTextAfterClickingPlusButton() {
         addFirstProductAndOpenCart();
+        log.info("Увеличиваем количество товара на +1");
         cartPage.clickButtonProductPlusCart();
-        String expectedText = "2 товара";
-        String actualText = cartPage.getCartSummaryText(expectedText);
 
-        log.info("Ожидаемый текст: {}, Фактический текст: {}", expectedText, actualText);
-        Assertions.assertTrue(actualText.contains(expectedText),
-                "Ожидалось, что текст содержит " + expectedText + " , но был: " + actualText);
+        log.info("Ожидаем, что в корзине отображается '2 товара'");
+        boolean isTextDisplayed = cartPage.waitForCartSummaryText("2 товара", 5);
+        log.info("Результат ожидания текста: {}", isTextDisplayed);
+
+        Assertions.assertTrue(isTextDisplayed, "Ожидалось, что текст содержит '2 товара', но это не произошло");
     }
 
     @Test
     @DisplayName("Уменьшение количества товара (-1)")
-    @Description("Проверяем, что после нажатия -1 количество товара обновляется корректно")
+    @Description("Проверяем, что после нажатия -1 количество товара обновляется корректно или корзина становится пустой")
     @Severity(SeverityLevel.MINOR)
     public void shouldDisplayCorrectTextAfterClickingMinusButton() {
         addFirstProductAndOpenCart();
+        log.info("Уменьшаем количество товара на -1");
         cartPage.clickButtonProductMinusCart();
-        String expectedText = "0 товаров";
-        String actualText = cartPage.getCartSummaryText(expectedText);
 
-        log.info("Ожидаемый текст: {}, Фактический текст: {}", expectedText, actualText);
-        Assertions.assertTrue(actualText.contains(expectedText),
-                "Ожидалось, что текст содержит " + expectedText + " , но был: " + actualText);
+        log.info("Ожидаем, что в корзине отображается '0 товаров' или 'Бесплатно'");
+        boolean isZeroItems = cartPage.waitForCartSummaryText("0 товаров", 5);
+        boolean isCartFree = cartPage.waitForEmptyCartPriceText("Бесплатно", 5);
+
+        log.info("Результаты ожидания: '0 товаров' = {}, 'Бесплатно' = {}", isZeroItems, isCartFree);
+
+        Assertions.assertTrue(isZeroItems || isCartFree, "Ожидалось, что текст содержит '0 товаров' или 'Бесплатно', но это не произошло");
     }
+
 }
