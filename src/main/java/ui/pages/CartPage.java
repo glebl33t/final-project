@@ -2,6 +2,7 @@ package ui.pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import ui.utils.Driver;
@@ -67,13 +68,34 @@ public class CartPage {
     }
 
     public String getCartSummaryText(String expectedText) {
-        wait.until(driver -> driver.findElement(By.xpath(CART_SUMMARY_TEXT)).getText().contains(expectedText));
-        return driver.findElement(By.xpath(CART_SUMMARY_TEXT)).getText();
+        for (int i = 0; i < 3; i++) {
+            try {
+                WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(CART_SUMMARY_TEXT)));
+                wait.until(driver -> element.getText().contains(expectedText));
+                return element.getText();
+            } catch (org.openqa.selenium.StaleElementReferenceException e) {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException ignored) {
+                }
+            }
+        }
+        throw new RuntimeException("Не удалось получить текст корзины после 3 попыток");
     }
 
     public String getEmptyCartPriceText() {
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(ITEM_LIST_EMPTY)));
-        return driver.findElement(By.xpath(ITEM_LIST_EMPTY)).getText().trim();
+        for (int i = 0; i < 3; i++) {
+            try {
+                WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(ITEM_LIST_EMPTY)));
+                return element.getText().trim();
+            } catch (org.openqa.selenium.StaleElementReferenceException e) {
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException ignored) {
+                }
+            }
+        }
+        throw new RuntimeException("Не удалось получить текст пустой корзины после 3 попыток");
     }
 
     public String getPriceFirstProduct() {

@@ -28,6 +28,7 @@
 - **Парсинг HTML:** Jsoup
 - **Парсинг JSON:** Jackson
 - **Генерация тестовых данных:** вспомогательные утилиты и генераторы
+- **Работа с Jenkins** 
 
 ---
 
@@ -47,10 +48,10 @@ src/
 │   ├── LoginServiceTest
 │   └── SearchServiceTest
 └── uiTest/         # UI тесты
-├── BaseTest
-├── CartTest
-├── LoginTest
-└── SearchTest
+    ├── BaseTest
+    ├── CartTest
+    ├── LoginTest
+    └── SearchTest
 ```
 
 ---
@@ -70,7 +71,6 @@ src/
   - Обработка ошибок при некорректных данных
 - Поиск товаров (SearchService)
   - HTML-ответы парсятся через Jsoup
-- Работа с корзиной (частично реализовано через API)
 
 ---
 

@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Configuration status="debug">
+<Configuration status="WARN">
     <Appenders>
-        <Console name="STDOUT">
-            <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %c{1} - %msg%n" charset="UTF-8"/>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{HH:mm:ss} [%t] %-5level %c{1} - %msg%n"/>
         </Console>
-        <RollingFile name="rollingFile"
-                     fileName="logs/log4j2.log"
-                     filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
-            <PatternLayout charset="UTF-8">
-                <Pattern>%d{yyyy-MM-dd HH:mm:ss} %-5level %c{1} - %msg%n</Pattern>
-            </PatternLayout>
+        <RollingFile name="rollingFile" fileName="logs/log4j2.log"
+                     filePattern="logs/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} %-5level %c{1} - %msg%n"/>
             <Policies>
                 <TimeBasedTriggeringPolicy interval="1"/>
                 <SizeBasedTriggeringPolicy size="250 MB"/>
@@ -18,8 +15,13 @@
     </Appenders>
 
     <Loggers>
+        <Logger name="org.openqa.selenium.devtools.CdpVersionFinder" level="ERROR" additivity="false">
+            <AppenderRef ref="Console"/>
+            <AppenderRef ref="rollingFile"/>
+        </Logger>
+
         <Root level="INFO">
-            <AppenderRef ref="STDOUT"/>
+            <AppenderRef ref="Console"/>
             <AppenderRef ref="rollingFile"/>
         </Root>
     </Loggers>
