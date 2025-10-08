@@ -21,11 +21,6 @@ public class LoginServiceTest {
     private static final Logger logger = LogManager.getLogger(LoginServiceTest.class);
     private static final ObjectMapper mapper = new ObjectMapper();
 
-    @BeforeEach
-    void setup() {
-        RestAssured.reset();
-    }
-
     @Step("Выполнение запроса авторизации с email: {email} и паролем: {password}")
     private JsonNode performLogin(String email, String password) throws Exception {
         LoginService service = new LoginService();
