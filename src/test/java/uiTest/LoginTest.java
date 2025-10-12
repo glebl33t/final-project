@@ -92,7 +92,8 @@ public class LoginTest extends BaseTest {
         );
 
         Assertions.assertTrue(
-                passwordError.isEmpty() || passwordError.equals("Неверный пароль") || passwordError.equals("Введите пароль"),
+                passwordError.isEmpty() || passwordError.equals("Неверный пароль") ||
+                        passwordError.equals("Введите пароль"),
                 "Ошибка пароля некорректна: " + passwordError
         );
     }

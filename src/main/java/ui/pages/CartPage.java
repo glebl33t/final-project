@@ -35,7 +35,8 @@ public class CartPage {
             } catch (StaleElementReferenceException | ElementClickInterceptedException | TimeoutException e) {
                 try {
                     Thread.sleep(300);
-                } catch (InterruptedException ignored) {}
+                } catch (InterruptedException ignored) {
+                }
             }
         }
         return false;
