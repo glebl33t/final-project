@@ -52,8 +52,8 @@ public class LoginPage {
     }
 
     public void fillLoginFormStep(String login, String password) {
-        Driver.sandKeys(USER_LOGIN, login);
-        Driver.sandKeys(USER_PASSWORD, password);
+        Driver.sendKeys(USER_LOGIN, login);
+        Driver.sendKeys(USER_PASSWORD, password);
         clickInputSubmit();
     }
 

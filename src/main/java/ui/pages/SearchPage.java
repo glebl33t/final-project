@@ -21,7 +21,7 @@ public class SearchPage {
     }
 
     public void sendKeysSearch(String search) {
-        Driver.sandKeys(INPUT_SEARCH, search);
+        Driver.sendKeys(INPUT_SEARCH, search);
     }
 
     public void startSearch() {

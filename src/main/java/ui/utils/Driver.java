@@ -42,7 +42,7 @@ public class Driver {
         element.click();
     }
 
-    public static void sandKeys(String xpath, String value) {
+    public static void sendKeys(String xpath, String value) {
         WebElement element = findElement(xpath);
         element.clear();
         element.sendKeys(value);
