@@ -38,8 +38,8 @@ public class SearchTest extends BaseTest {
     }
 
     @Test
-    @Story("Поиск конкретного товара")
-    @DisplayName("Поиск конкретного товара")
+    @Story("Поиск существующего товара")
+    @DisplayName("Поиск по конкретному товару")
     public void searchSpecificProduct() {
         String search = "Space Marine Attack Bike";
         performSearch(search);
@@ -53,7 +53,7 @@ public class SearchTest extends BaseTest {
 
     @Test
     @Story("Поиск по ключевому слову")
-    @DisplayName("Поиск по ключевому слову")
+    @DisplayName("Поиск всех товаров с ключевым словом")
     public void searchAllProductsByName() {
         String search = "монополия";
         performSearch(search);
@@ -76,7 +76,7 @@ public class SearchTest extends BaseTest {
 
     @Test
     @Story("Поиск по несуществующему слову")
-    @DisplayName("Поиск по несуществующему слову")
+    @DisplayName("Проверка отображения сообщения об отсутствии результатов")
     public void searchReturnNoResult() {
         String search = "weqfafas";
         performSearch(search);

@@ -3,7 +3,6 @@ package uiTest;
 import io.qameta.allure.Step;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.WebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import ui.pages.HomePage;
@@ -13,7 +12,6 @@ public class BaseTest {
     private static final Logger log = LoggerFactory.getLogger(BaseTest.class);
 
     protected HomePage homePage;
-    protected WebDriver driver;
 
     @BeforeEach
     @Step("Открыть сайт и закрыть баннер с cookie")

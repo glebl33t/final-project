@@ -35,9 +35,7 @@ public class LoginPage {
 
     public String getTextErrorPassword() {
         try {
-            String text = Driver.getText(ERROR_PASSWORD_TEXT);
-            logger.info("Ошибка пароля получена: {}", text);
-            return text;
+            return Driver.getText(ERROR_PASSWORD_TEXT);
         } catch (Exception e) {
             logger.error("Не удалось получить текст ошибки пароля", e);
             return "";
@@ -46,9 +44,7 @@ public class LoginPage {
 
     public String getTextErrorLogin() {
         try {
-            String text = Driver.getText(ERROR_LOGIN_TEXT);
-            logger.info("Ошибка логина получена: {}", text);
-            return text;
+            return Driver.getText(ERROR_LOGIN_TEXT);
         } catch (Exception e) {
             logger.error("Не удалось получить текст ошибки логина", e);
             return "";
@@ -56,20 +52,9 @@ public class LoginPage {
     }
 
     public void fillLoginFormStep(String login, String password) {
-        logger.info("Заполнение формы логина: login={}, password={}", login, "*скрыт*");
-        sendKeysUserLogin(login);
-        sendKeysUserPassword(password);
-        clickInputSubmit();
-    }
-
-    private void sendKeysUserPassword(String password) {
-        logger.info("Ввод пароля");
-        Driver.sandKeys(USER_PASSWORD, password);
-    }
-
-    private void sendKeysUserLogin(String login) {
-        logger.info("Ввод логина: {}", login);
         Driver.sandKeys(USER_LOGIN, login);
+        Driver.sandKeys(USER_PASSWORD, password);
+        clickInputSubmit();
     }
 
     public void clickPersonalAccount() {

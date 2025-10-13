@@ -25,8 +25,8 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-    @Story("Авторизация со всеми параметрами")
-    @DisplayName("Авторизация со всеми параметрами")
+    @DisplayName("Авторизация с некорректными данными")
+    @Severity(SeverityLevel.CRITICAL)
     public void loginTestWithFullArgs() {
         String email = generateEmail();
         String password = generateRandomPassword(10);
@@ -36,8 +36,8 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-    @Story("Авторизация с логином и пустым паролем")
     @DisplayName("Авторизация с логином и пустым паролем")
+    @Severity(SeverityLevel.CRITICAL)
     public void loginTestWithoutPassword() {
         String email = generateEmail();
         String password = "";
@@ -47,8 +47,8 @@ public class LoginTest extends BaseTest {
     }
 
     @Test
-    @Story("Авторизация без логина и пароля")
     @DisplayName("Авторизация без логина и пароля")
+    @Severity(SeverityLevel.CRITICAL)
     public void loginTestWithoutArgs() {
         String email = "";
         String password = "";
@@ -59,8 +59,8 @@ public class LoginTest extends BaseTest {
 
     @Disabled("Временно отключен из-за блокировки аккаунта")
     @Test
-    @Story("Успешная авторизация")
     @DisplayName("Успешная авторизация")
+    @Severity(SeverityLevel.BLOCKER)
     public void successfulLogin() {
         String email = "glebtolst1k@mail.ru";
         String password = "quasoupuness";
@@ -71,7 +71,7 @@ public class LoginTest extends BaseTest {
         log.info("Успешная авторизация прошла для пользователя {}", email);
     }
 
-    @Step("Заполнить форму логина с email: {email} и password: {password}")
+    @Step("Заполнить форму логина")
     private void fillLoginForm(String email, String password) {
         log.info("Заполняем форму логина: email={}, password={}", email, password);
         loginPage.fillLoginFormStep(email, password);

@@ -4,6 +4,8 @@ import api.LoginService;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.qameta.allure.Attachment;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Step;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -14,12 +16,14 @@ import ui.utils.Generators;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@Epic("API тесты")
+@Feature("Авторизация")
 public class LoginServiceTest {
 
     private static final Logger logger = LogManager.getLogger(LoginServiceTest.class);
     private static final ObjectMapper mapper = new ObjectMapper();
 
-    @Step("Выполнение запроса авторизации с email: {email} и паролем: {password}")
+    @Step("Авторизация с email={email} и паролем={password}")
     private JsonNode performLogin(String email, String password) throws Exception {
         LoginService service = new LoginService();
         service.doRequest(email, password);
@@ -49,7 +53,7 @@ public class LoginServiceTest {
     }
 
     @Test
-    @DisplayName("Авторизация с логином и пустым паролем")
+    @DisplayName("Авторизация с пустым паролем")
     public void loginWithEmptyPassword() throws Exception {
         String email = Generators.generateEmail();
         String password = "";
@@ -71,7 +75,7 @@ public class LoginServiceTest {
     }
 
     @Test
-    @Disabled("Отключен")
+    @Disabled("Отключен для локального запуска")
     @DisplayName("Успешная авторизация")
     public void successfulLogin() throws Exception {
         String email = "glebtolst1k@mail.ru";

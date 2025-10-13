@@ -23,7 +23,7 @@ public class SearchServiceTest {
     private static final Logger logger = LogManager.getLogger(SearchServiceTest.class);
 
     @Test
-    @Story("Поиск существующего товара")
+    @Story("Существующий товар")
     @DisplayName("Поиск по существующему товару — 'Монополия'")
     public void testSearchForExistingProduct() {
         Allure.step("Запускаем тест: Поиск по существующему товару — 'Монополия'", () -> {
@@ -51,7 +51,7 @@ public class SearchServiceTest {
     }
 
     @Test
-    @Story("Поиск несуществующего товара")
+    @Story("Несуществующий товар")
     @DisplayName("Поиск по несуществующему товару")
     public void testSearchForNonExistingProduct() {
         Allure.step("Поиск по несуществующему товару", () -> {
@@ -76,7 +76,7 @@ public class SearchServiceTest {
     }
 
     @Test
-    @Story("Поиск с пустой строкой")
+    @Story("Пустой запрос")
     @DisplayName("Поиск с пустой строкой")
     public void testSearchWithEmptyString() {
         Allure.step("Поиск с пустой строкой", () -> {
