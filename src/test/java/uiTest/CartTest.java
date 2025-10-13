@@ -94,7 +94,8 @@ public class CartTest extends BaseTest {
         cartPage.clickButtonProductMinusCart();
 
         Assertions.assertTrue(
-                cartPage.waitForCartSummaryText("0 товаров", 5) || cartPage.waitForEmptyCartPriceText("Бесплатно", 5),
+                cartPage.waitForCartSummaryText("0 товаров", 5)
+                        || cartPage.waitForEmptyCartPriceText("Бесплатно", 5),
                 "Ожидалось, что текст содержит '0 товаров' или 'Бесплатно'");
     }
 
