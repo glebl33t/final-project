@@ -54,16 +54,17 @@ src/
 │       │       ├── Driver            
 │       │       └── Generators        
 │       └── resources /               # Log4j2.xml
-└── test/ java/
-          ├── apiTest/                # API тесты
-          │   ├── LoginServiceTest    
-          │   └── SearchServiceTest   
-          ├── uiTest/                 # UI тесты
-          │   ├── BaseTest
-          │   ├── CartTest              
-          │   ├── LoginTest           
-          │   └── SearchTest          
-          └── resources /             # Allure.properties
+└── test/
+      ├── java/
+      │   ├── apiTest/                # API тесты
+      │   │   ├── LoginServiceTest    
+      │   │   └── SearchServiceTest   
+      │   └── uiTest/                 # UI тесты
+      │       ├── BaseTest
+      │       ├── CartTest              
+      │       ├── LoginTest           
+      │       └── SearchTest          
+      └── resources /                 # Allure.properties
 ```
 ---
 
