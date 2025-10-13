@@ -63,7 +63,7 @@ public class LoginTest extends BaseTest {
     @Severity(SeverityLevel.BLOCKER)
     public void successfulLogin() {
         String email = "glebtolst1k@mail.ru";
-        String password = "quasoupuness";
+        String password = "xuranydom";
         fillLoginForm(email, password);
 
         loginPage.clickPersonalAccount();

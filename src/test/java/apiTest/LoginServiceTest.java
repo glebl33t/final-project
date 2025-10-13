@@ -79,7 +79,7 @@ public class LoginServiceTest {
     @DisplayName("Успешная авторизация")
     public void successfulLogin() throws Exception {
         String email = "glebtolst1k@mail.ru";
-        String password = "quasoupuness";
+        String password = "xuranydom";
 
         JsonNode json = performLogin(email, password);
 
