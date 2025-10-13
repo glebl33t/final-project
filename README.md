@@ -123,18 +123,14 @@ src/
 ## 🚀 Запуск тестов
 
 ### Локально через Maven
-
-- Все тесты:
 ```bash
+  - Все тесты:      
   mvn clean test
-  
-  Только UI тесты:
+  - Только UI тесты: 
   mvn clean test -Dgroups=ui
-  
-  Только API тесты:
+  - Только API тесты: 
   mvn clean test -Dgroups=api
-
-  С генерацией Allure отчёта
+  - С генерацией Allure отчёта:
   mvn clean test
   allure serve target/allure-results
 ```
